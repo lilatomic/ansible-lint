@@ -111,6 +111,7 @@ repos:
     additional_dependencies:
     - Sphinx>=3.1.2
     - ansible-base
+    - ansible-compat
     - enrich
     - flaky
     - pytest
@@ -134,6 +135,7 @@ repos:
   - id: pylint
     additional_dependencies:
     - ansible-base
+    - ansible-compat
     - docutils
     - enrich
     - flaky

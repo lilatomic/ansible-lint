@@ -31,6 +31,7 @@ from argparse import Namespace
 from contextlib import contextmanager
 from typing import TYPE_CHECKING, Any, Callable, Dict, Iterator, List, Optional
 
+from ansible_compat.prerun import check_ansible_presence
 from enrich.console import should_do_markup
 
 from ansiblelint import cli
@@ -45,7 +46,7 @@ from ansiblelint.color import (
 from ansiblelint.config import options
 from ansiblelint.constants import ANSIBLE_MISSING_RC, EXIT_CONTROL_C_RC
 from ansiblelint.file_utils import cwd
-from ansiblelint.prerun import check_ansible_presence, prepare_environment
+from ansiblelint.prerun import _perform_mockings
 from ansiblelint.skip_utils import normalize_tag
 from ansiblelint.version import __version__
 
@@ -202,8 +203,11 @@ def main(argv: Optional[List[str]] = None) -> int:
     _logger.debug("Options: %s", options)
 
     app = App(options=options)
+    # Make linter use the cache dir from compat
+    options.cache_dir = app.runtime.cache_dir
 
-    prepare_environment()
+    app.runtime.prepare_environment()
+    _perform_mockings()
     check_ansible_presence(exit_on_error=True)
 
     # On purpose lazy-imports to avoid pre-loading Ansible

@@ -4,6 +4,7 @@
 #
 #    pip-compile --no-annotate --output-file=test-requirements.txt setup.cfg test-requirements.in
 #
+ansible-compat==0.3.0
 attrs==21.2.0
 bracex==2.1.1
 colorama==0.4.4
