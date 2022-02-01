@@ -1,0 +1,15 @@
+---
+- hosts: bobbins
+  tasks:
+    - name: backup influxdb ee
+      command:
+        cmd: >-
+          influxd-ctl
+          -bind {{ influx_leader_hostname }}:{{ influx_meta_port }}
+          -bind-tls -k
+          -auth-type basic
+          -user backup
+          -pwd {{ backup_password }}
+          backup
+          -strategy {{ backup_strategy }}
+          {{ backup_dir }}

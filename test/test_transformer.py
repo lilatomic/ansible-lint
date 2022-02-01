@@ -63,6 +63,7 @@ def runner_result(
             True,
             id="contains_secrets",
         ),
+        pytest.param('examples/other/yaml_block_scalars.yml', [], 1, False, id="preserveblocks"),
     ),
 )
 def test_transformer(
